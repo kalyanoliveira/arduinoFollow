@@ -6,7 +6,7 @@ What I'll do is give a general explanation of the code, followed by the line-by-
 
 ## General (short) explanation of code
 
-The code of the robot is quite simple from a high-level view. In the loop() function, we make use of an if-elseif-else statement to measure the photoresistor. If the output of the photoresistor is higher than a predetermined "brightness" variable, we set the "angry" variable to true, turn on the LEDs, and execute the angry_action() function, which as the name implies corresponds to the action that the robot does when it's angry. 
+The code of the robot is quite simple from a high-level view. In the loop() function, we make use of an if-elseif-else statement to measure the photoresistor. If the output of the photoresistor is higher than a predetermined "brightness" variable, we set the "angry" variable to true, and execute the angry_action() function, which as the name implies corresponds to the action that the robot does when it's angry. 
 
 Else, if the surrounding environment of the photoresistor is not bright enough but the angry variable is set to true, we execute the angry_action() function. Else - that is, if the surrounding environment is not bright enough and the angry variable is set to false - we simply do nothing. 
 
@@ -88,6 +88,10 @@ Finally, for the motor_spin_left() and motor_spin_right() functions, all that ne
 ---
 
 Now I’ll note a couple of more aspects about the code, but not related to specific functions themselves. First, that in the setup() function we start with line 78, which “sets up serial communication”. If you skim back throughout the code, you’ll see that in many instances we used the Serial.print() function. This is done for debugging purposes, such that we can use the Serial Monitor to, well, monitor our code.
+
+We also have a bunch of lines that simply define whether our pins are OUTPUT's or INPUT's, which is achieved via the pinMode() function and is done in lines 81-94.
+
+There is one special pinMode, though: line 100. Here, we set the pin "power", which as can be seen in line 27 corresponds to the digital pin 2, as an OUTPUT, and then we proceed to set that same pin to HIGH in line 101 using digitalWrite. What this allows us to do is, with a powerful enough battery, power both the Arduino Uno and the H-Bridge with the same power source, using pin 2 as the positive wire to be connected into an breadboard instead of the conventional 5V, which would be used by the output 5V pin of the H-Bridge
 
 Also notice the usage of prototypes at the beginning of the code. Essentially, to be able to write the implementation for the auxiliary functions below setup() and loop(), we have to include these in the beginning of the code (lines 30 to 53). This is a feature specific to C, and if it interests the reader, check our this guide (https://www.programiz.com/c-programming/c-user-defined-functions#:~:text=A%20function%20prototype%20is%20simply,be%20used%20in%20the%20program).
 
