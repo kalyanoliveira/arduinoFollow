@@ -1,4 +1,19 @@
 # arduinoFollow
+
+The instructors asked for a line by line explanation of the code. But as you can see by just skimming this README, that explanation will inevitably be very long.
+
+What I'll do is give a general explanation of the code, followed by the line-by-line explanation. Choose whichever you see fit.
+
+## General (short) explanation of code
+
+The code of the robot is quite simple from a high-level view. In the loop() function, we make use of an if-elseif-else statement to measure the photoresistor. If the output of the photoresistor is higher than a predetermined "brightness" variable, we set the "angry" variable to true, turn on the LEDs, and execute the angry_action() function, which as the name implies corresponds to the action that the robot does when it's angry. 
+
+Else, if the surrounding environment of the photoresistor is not bright enough but the angry variable is set to true, we execute the angry_action() function. Else - that is, if the surrounding environment is not bright enough and the angry variable is set to false - we simply do nothing. 
+
+The angry_action() function contains a logic of its own: it will either follow a target if it’s close enough, using the ultrasonic sensor and infrared sensors, or it will search for a target up to predetermined number of times. After enough searches, the robot "gives up" and stops being angry (which corresponds to setting the angry variable to false).
+
+## Full (lengthy) explanation of code
+
 So, here’s a lengthy explanation of the code located in final.ino
 
 The easiest way to understand it is by first taking a look at the loop() function of the code, in line 108. We start with an “if” statement, which calls for the function measure_phr(), and then compares it with the variable brightness (which was defined in line 67). 
